@@ -53,7 +53,7 @@ We now run the PCA preprocessing on the testing subset...
 testPCA <- predict(preproc,test[7:58])
 ```
 
-...and generate a confusion matrix on this test data and we can see that it is about 82% accurate here, suggesting an out of sample error rate of around 18%, which is close to the rate estimated during the cross validation.
+...and generate a confusion matrix on this test data and we can see that it is about 82% accurate here, suggesting an out of sample error rate of around 16%, which is close to the rate estimated during the cross validation.
 
 ```{r}
 confusionMatrix(test$classe,predict(modFit,testPCA))

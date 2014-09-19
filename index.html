@@ -105,7 +105,7 @@ trainPCA &lt;- predict(preproc,train[7:58])</code></pre>
 <p>From this we can expect an accuracy of around 80% though cross validation tends to over estimate this. This would suggest an out of sample error rate of about 20%.</p>
 <p>We now run the PCA preprocessing on the testing subset…</p>
 <pre class="r"><code>testPCA &lt;- predict(preproc,test[7:58])</code></pre>
-<p>…and generate a confusion matrix on this test data and we can see that it is about 82% accurate here, suggesting an out of sample error rate of around 18%, which is close to the rate estimated during the cross validation.</p>
+<p>…and generate a confusion matrix on this test data and we can see that it is about 82% accurate here, suggesting an out of sample error rate of around 16%, which is close to the rate estimated during the cross validation.</p>
 <pre class="r"><code>confusionMatrix(test$classe,predict(modFit,testPCA))</code></pre>
 <pre><code>## Confusion Matrix and Statistics
 ## 
