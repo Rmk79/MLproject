@@ -59,4 +59,4 @@ testPCA <- predict(preproc,test[7:58])
 confusionMatrix(test$classe,predict(modFit,testPCA))
 ```
 
-I then loaded the test data provided on the class site and rand the predict method on it, but I won't show that here because it will give my answers away!
+I then loaded the test data provided on the class site and ran the predict method on it, but I won't show that here because it will give my answers away!
