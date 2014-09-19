@@ -1,0 +1,62 @@
+---
+title: "Practical Machine Learning Project"
+author: "Robert Kerr"
+date: "19/09/2014"
+output: html_document
+---
+
+First we read in the training data, I had edited this in a spreadsheet package to remove columns that were mostly empty or had mostly NA entries.
+
+```{r}
+trainingData <- read.csv("/home/r/Downloads/coursera/pml-training-reduced.csv")
+```
+
+Now we load the caret package that will be used to preprocess, fit and evaluate the data.
+
+```{r}
+library(caret)
+```
+
+Next is the partitioning of the data into a training and a test set. I chose to take 75% of the data for the training set.
+
+```{r}
+inTrain = createDataPartition(trainingData$classe, p = 3/4)[[1]]
+train = trainingData[inTrain,]
+test = trainingData[-inTrain,]
+```
+
+Then some preprocessing was carried out, I used PCA to reduce the number of variables. I chose to use variables that would account for 95% of the variance. This gave me 24 variables to use a predictors.
+
+```{r}
+preproc <- preProcess(train[7:58],method="pca",thresh=0.95)
+trainPCA <- predict(preproc,train[7:58])
+```
+
+Note that I didn't use columns that could not be used as predictors.
+
+Now we set up a training control object that we can pass into the main training method. This will perform 10 separate 10 fold cross validations
+
+```{r}
+trControl <- trainControl(method="repeatedcv", number=10, repeats=10)
+```
+
+Now we actually train our model. I've set ntree to be 1 here but when I ran it for the purposes of submission I set ntree to be 50.
+
+```{r}
+modFit <- train(train$classe~.,data=trainPCA,method="rf",trControl=trControl,ntree=1)
+modFit
+```
+From this we can expect an accuracy of around 80% though cross validation tends to over estimate this.
+
+We now run the PCA preprocessing on the testing subset...
+```{r}
+testPCA <- predict(preproc,test[7:58])
+```
+
+...and generate a confusion matrix on this test data and we can see that it is about 82% accurate here.
+
+```{r}
+confusionMatrix(test$classe,predict(modFit,testPCA))
+```
+
+I then loaded the test data provided on the class site and rand the predict method on it, but I won't show that here because it will give my answers away!
