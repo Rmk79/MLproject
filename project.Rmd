@@ -46,14 +46,14 @@ Now we actually train our model. I've set ntree to be 1 here but when I ran it f
 modFit <- train(train$classe~.,data=trainPCA,method="rf",trControl=trControl,ntree=1)
 modFit
 ```
-From this we can expect an accuracy of around 80% though cross validation tends to over estimate this. This would suggest an out of sample error rate of about 10%.
+From this we can expect an accuracy of around 80% though cross validation tends to over estimate this. This would suggest an out of sample error rate of about 20%.
 
 We now run the PCA preprocessing on the testing subset...
 ```{r}
 testPCA <- predict(preproc,test[7:58])
 ```
 
-...and generate a confusion matrix on this test data and we can see that it is about 82% accurate here, suggesting an out of sample error rate of around 8%, which is close to the rate estimated during the cross validation.
+...and generate a confusion matrix on this test data and we can see that it is about 82% accurate here, suggesting an out of sample error rate of around 18%, which is close to the rate estimated during the cross validation.
 
 ```{r}
 confusionMatrix(test$classe,predict(modFit,testPCA))
