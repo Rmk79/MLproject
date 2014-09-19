@@ -91,7 +91,7 @@ trainPCA &lt;- predict(preproc,train[7:58])</code></pre>
 ## No pre-processing
 ## Resampling: Cross-Validated (10 fold, repeated 10 times) 
 ## 
-## Summary of sample sizes: 13248, 13246, 13245, 13247, 13245, 13246, ... 
+## Summary of sample sizes: 13244, 13247, 13245, 13246, 13247, 13248, ... 
 ## 
 ## Resampling results across tuning parameters:
 ## 
@@ -102,42 +102,42 @@ trainPCA &lt;- predict(preproc,train[7:58])</code></pre>
 ## 
 ## Accuracy was used to select the optimal model using  the largest value.
 ## The final value used for the model was mtry = 25.</code></pre>
-<p>From this we can expect an accuracy of around 80% though cross validation tends to over estimate this.</p>
+<p>From this we can expect an accuracy of around 80% though cross validation tends to over estimate this. This would suggest an out of sample error rate of about 10%.</p>
 <p>We now run the PCA preprocessing on the testing subset…</p>
 <pre class="r"><code>testPCA &lt;- predict(preproc,test[7:58])</code></pre>
-<p>…and generate a confusion matrix on this test data and we can see that it is about 82% accurate here.</p>
+<p>…and generate a confusion matrix on this test data and we can see that it is about 82% accurate here, suggesting an out of sample error rate of around 8%, which is close to the rate estimated during the cross validation.</p>
 <pre class="r"><code>confusionMatrix(test$classe,predict(modFit,testPCA))</code></pre>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##           Reference
 ## Prediction    A    B    C    D    E
-##          A 1218   64   54   40   19
-##          B   72  730   56   38   53
-##          C   46   55  651   64   39
-##          D   36   34   52  649   33
-##          E   16   55   36   28  766
+##          A 1220   63   47   42   23
+##          B   69  728   61   45   46
+##          C   56   62  649   48   40
+##          D   46   35   71  620   32
+##          E   42   51   45   32  731
 ## 
 ## Overall Statistics
 ##                                         
-##                Accuracy : 0.819         
-##                  95% CI : (0.807, 0.829)
-##     No Information Rate : 0.283         
+##                Accuracy : 0.805         
+##                  95% CI : (0.794, 0.816)
+##     No Information Rate : 0.292         
 ##     P-Value [Acc &gt; NIR] : &lt;2e-16        
 ##                                         
-##                   Kappa : 0.771         
-##  Mcnemar's Test P-Value : 0.963         
+##                   Kappa : 0.753         
+##  Mcnemar's Test P-Value : 0.221         
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: A Class: B Class: C Class: D Class: E
-## Sensitivity             0.878    0.778    0.767    0.792    0.842
-## Specificity             0.950    0.945    0.950    0.962    0.966
-## Pos Pred Value          0.873    0.769    0.761    0.807    0.850
-## Neg Pred Value          0.952    0.947    0.951    0.959    0.964
-## Prevalence              0.283    0.191    0.173    0.167    0.186
-## Detection Rate          0.248    0.149    0.133    0.132    0.156
+## Sensitivity             0.851    0.775    0.743    0.788    0.838
+## Specificity             0.950    0.944    0.949    0.955    0.958
+## Pos Pred Value          0.875    0.767    0.759    0.771    0.811
+## Neg Pred Value          0.939    0.947    0.945    0.959    0.965
+## Prevalence              0.292    0.191    0.178    0.160    0.178
+## Detection Rate          0.249    0.148    0.132    0.126    0.149
 ## Detection Prevalence    0.284    0.194    0.174    0.164    0.184
-## Balanced Accuracy       0.914    0.862    0.858    0.877    0.904</code></pre>
+## Balanced Accuracy       0.900    0.860    0.846    0.872    0.898</code></pre>
 <p>I then loaded the test data provided on the class site and ran the predict method on it, but I won’t show that here because it will give my answers away!</p>
 
 
